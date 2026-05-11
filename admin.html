@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCC Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #f4f1ec; padding: 40px; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h2 { color: #8B1A2B; border-bottom: 2px solid #8B1A2B; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+        th { background-color: #8B1A2B; color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        .refresh-btn { background: #C9A84C; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>SCC Registration Records</h2>
+        <button class="refresh-btn" onclick="loadData()">Refresh Data</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Program</th>
+                    <th>Event</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </thead>
+            <tbody id="adminTableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/api/admin/registrations');
+                const data = await response.json();
+                const tableBody = document.getElementById('adminTableBody');
+                tableBody.innerHTML = '';
+
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.fullName}</td>
+                        <td>${row.email}</td>
+                        <td>${row.phone}</td>
+                        <td>${row.program}</td>
+                        <td>${row.eventFor}</td>
+                        <td>${new Date(row.submittedAt).toLocaleString()}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+        // Load data pagkabukas ng page
+        loadData();
+    </script>
+</body>
+</html>

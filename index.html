@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St. Clare College - The School of Life Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --maroon: #8B1A2B;
+    --maroon-dark: #6B1220;
+    --maroon-light: #A52535;
+    --gold: #C9A84C;
+    --cream: #FAF7F2;
+    --gray-light: #F4F1EC;
+    --gray-mid: #D4D0C8;
+    --gray-text: #6B6860;
+    --text-dark: #1A1714;
+    --white: #FFFFFF;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 68px;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139,26,43,0.12);
+    box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+  .nav-logo-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--maroon); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-size: 16px; font-weight: 900; color: white; letter-spacing: -0.5px;
+  }
+  .nav-logo-text { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-links a {
+    padding: 0.45rem 1rem; border-radius: 6px;
+    font-size: 0.88rem; font-weight: 500; color: var(--gray-text);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--maroon); background: rgba(139,26,43,0.06); }
+  .btn-nav {
+    padding: 0.5rem 1.3rem; border-radius: 8px;
+    background: var(--maroon); color: white;
+    font-size: 0.88rem; font-weight: 600; text-decoration: none;
+    transition: background 0.2s; margin-left: 0.5rem;
+  }
+  .btn-nav:hover { background: var(--maroon-dark); color: white; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; padding-top: 68px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1A0608 0%, #5C1020 40%, #8B1A2B 75%, #A52535 100%);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content {
+    position: relative; z-index: 2; text-align: center; color: white;
+    max-width: 720px; padding: 2rem;
+  }
+  .hero-eyebrow {
+    display: inline-block; letter-spacing: 0.25em; font-size: 0.75rem;
+    font-weight: 600; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-heading); font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900; line-height: 1.05; margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--gold); display: block; }
+  .hero p {
+    font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.82);
+    max-width: 520px; margin: 0 auto 2.5rem;
+  }
+  .btn-hero {
+    display: inline-block; padding: 1rem 2.5rem; border-radius: 10px;
+    background: var(--gold); color: var(--maroon-dark);
+    font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: all 0.25s; letter-spacing: 0.01em;
+  }
+  .btn-hero:hover { background: #d4b15e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.5); font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollLine { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.4;transform:scaleY(0.5)} }
+
+  /* ── MISSION ── */
+  .section-mission {
+    padding: 6rem 2rem; background: var(--white); text-align: center;
+  }
+  .mission-logo-circle {
+    width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1.5rem;
+    background: var(--maroon); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-size: 28px; font-weight: 900; color: white;
+    box-shadow: 0 4px 20px rgba(139,26,43,0.25);
+  }
+  .section-tag {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--maroon);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700; color: var(--text-dark); margin-bottom: 1.25rem;
+  }
+  .section-lead {
+    font-size: 1.08rem; line-height: 1.8; color: var(--gray-text);
+    max-width: 580px; margin: 0 auto;
+  }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem; max-width: 900px; margin: 4rem auto 0; padding: 0 1rem;
+  }
+  .stat-card {
+    background: var(--gray-light); border-radius: 12px; padding: 2rem 1rem; text-align: center;
+    border: 1px solid var(--gray-mid); transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .stat-number { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; color: var(--maroon); }
+  .stat-label { font-size: 0.85rem; font-weight: 500; color: var(--gray-text); margin-top: 0.25rem; }
+
+  /* ── EVENTS ── */
+  .section-events {
+    padding: 6rem 2rem; background: var(--gray-light);
+  }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header p { color: var(--gray-text); font-size: 1rem; margin-top: 0.5rem; }
+
+  .events-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .event-card {
+    background: var(--white); border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--gray-mid); transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+  .event-img {
+    width: 100%; height: 200px; object-fit: cover;
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .event-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--gold); color: var(--maroon-dark);
+    font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .event-img-placeholder {
+    font-family: var(--font-heading); font-size: 3rem; font-weight: 900;
+    color: rgba(255,255,255,0.2); text-align: center; padding: 1rem;
+  }
+  .event-body { padding: 1.5rem; }
+  .event-date-chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--maroon);
+    margin-bottom: 0.75rem;
+  }
+  .event-title { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
+  .event-detail { display: flex; gap: 0.75rem; margin-bottom: 0.6rem; font-size: 0.87rem; color: var(--gray-text); }
+  .event-detail strong { color: var(--text-dark); min-width: 70px; }
+  .event-highlight { font-size: 0.87rem; font-weight: 600; color: var(--maroon); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-light); }
+  .btn-event {
+    display: inline-block; margin-top: 1.25rem; padding: 0.6rem 1.4rem;
+    border: 2px solid var(--maroon); border-radius: 8px;
+    font-size: 0.85rem; font-weight: 600; color: var(--maroon);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-event:hover { background: var(--maroon); color: white; }
+
+  /* ── CAMPUS LIFE ── */
+  .section-campus {
+    padding: 6rem 2rem; background: var(--white);
+  }
+  .campus-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .campus-text .section-title { text-align: left; margin-bottom: 1rem; }
+  .campus-text .section-lead { text-align: left; margin: 0 0 2rem; }
+  .campus-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .campus-list li {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.95rem; font-weight: 500; color: var(--text-dark);
+  }
+  .campus-list li::before {
+    content: ''; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--maroon); flex-shrink: 0;
+  }
+  .campus-photos {
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 0.75rem;
+  }
+  .photo-box {
+    border-radius: 12px; overflow: hidden; background: var(--gray-light);
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); color: var(--gray-mid); font-size: 0.85rem; font-weight: 600;
+    position: relative;
+  }
+  .photo-box:nth-child(1) { background: linear-gradient(135deg, #8B1A2B, #C9384A); }
+  .photo-box:nth-child(2) { background: linear-gradient(135deg, #C9A84C, #D4B15E); }
+  .photo-box:nth-child(3) { background: linear-gradient(135deg, #3A6B4A, #4F8E63); }
+  .photo-box:nth-child(4) { background: linear-gradient(135deg, #2B4A8B, #3A5FA5); }
+  .photo-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.45); color: rgba(255,255,255,0.9);
+    font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+    padding: 0.4rem 0.75rem; letter-spacing: 0.04em;
+  }
+
+  /* ── REGISTRATION FORM ── */
+  .section-register {
+    padding: 6rem 2rem; background: var(--maroon);
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .register-inner { max-width: 860px; margin: 0 auto; }
+  .register-header { text-align: center; color: white; margin-bottom: 2.5rem; }
+  .register-header h2 { font-family: var(--font-heading); font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .register-header p { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
+
+  .form-card {
+    background: var(--white); border-radius: 20px; padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-dark); letter-spacing: 0.02em; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem; border-radius: 9px;
+    border: 1.5px solid var(--gray-mid); font-family: var(--font-body);
+    font-size: 0.9rem; color: var(--text-dark); background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(139,26,43,0.12);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-submit {
+    width: 100%; padding: 1rem; border: none; border-radius: 10px;
+    background: var(--maroon); color: white; font-family: var(--font-body);
+    font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 0.5rem;
+    transition: all 0.25s; letter-spacing: 0.02em;
+  }
+  .btn-submit:hover { background: var(--maroon-dark); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* ── SUCCESS MSG ── */
+  .success-msg {
+    display: none; background: #EAFAF1; border: 1.5px solid #27ae60; border-radius: 10px;
+    padding: 1rem 1.25rem; margin-top: 1rem;
+    font-size: 0.9rem; font-weight: 600; color: #1a7a40; text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 1.5rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: rgba(255,255,255,0.85); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: white; padding: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 1px solid var(--gray-mid); }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; }
+    .btn-nav { margin: 0.5rem 1rem; display: block; text-align: center; }
+    .hamburger { display: flex; }
+    .campus-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .campus-text .section-title { text-align: center; }
+    .campus-text .section-lead { text-align: center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">SC</div>
+    <span class="nav-logo-text">St. Clare College</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#mission">About</a>
+    <a href="#events">Events</a>
+    <a href="#campus">Campus Life</a>
+    <a href="#register" class="btn-nav">Register Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">The School of Life Skills</span>
+    <h1>Welcome to<span>St. Clare College</span></h1>
+    <p>Empowering students with practical skills, academic excellence, and the foundation for a successful future.</p>
+    <a href="#register" class="btn-hero">Register for Upcoming Events</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- MISSION -->
+<section class="section-mission" id="mission">
+  <div class="mission-logo-circle">SC</div>
+  <span class="section-tag reveal">Our Purpose</span>
+  <h2 class="section-title reveal">Our Mission &amp; Vision</h2>
+  <p class="section-lead reveal">At St. Clare College, we are committed to providing quality education that goes beyond the classroom. Known as "The School of Life Skills", we prepare our students not just for their careers, but for life.</p>
+  <div class="stats-row">
+    <div class="stat-card reveal"><div class="stat-number">30+</div><div class="stat-label">Years of Excellence</div></div>
+    <div class="stat-card reveal"><div class="stat-number">5K+</div><div class="stat-label">Graduates</div></div>
+    <div class="stat-card reveal"><div class="stat-number">20+</div><div class="stat-label">Programs Offered</div></div>
+    <div class="stat-card reveal"><div class="stat-number">100%</div><div class="stat-label">Committed to Life Skills</div></div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="section-events" id="events">
+  <div class="section-header">
+    <span class="section-tag reveal">What's Happening</span>
+    <h2 class="section-title reveal">Upcoming Events</h2>
+    <p class="reveal">Join us on campus to learn more about our programs and enrollment processes.</p>
+  </div>
+
+  <div class="events-grid">
+    <!-- Event 1 -->
+    <div class="event-card reveal">
+      <div class="event-img">
+        <div class="event-img-placeholder">🎓<br>Graduation<br>Orientation</div>
+        <span class="event-badge">Upcoming</span>
+      </div>
+      <div class="event-body">
+        <div class="event-date-chip">📅 May 9, 2026 — Saturday</div>
+        <h3 class="event-title">Tertiary Graduation Orientation A.Y. 2025–2026</h3>
+        <div class="event-detail"><strong>Date</strong><span>May 9, 2026 (Saturday)</span></div>
+        <div class="event-detail"><strong>Venue</strong><span>SCC Gymnasium</span></div>
+        <div class="event-detail"><strong>Session A</strong><span>8:00 AM – 10:00 AM | BSHM, BSTM &amp; ABPOL</span></div>
+        <div class="event-detail"><strong>Session B</strong><span>4:00 PM – 6:00 PM | BSCS, BSBA &amp; EDUC</span></div>
+        <div class="event-detail"><strong>Registration</strong><span>3:00 PM</span></div>
+        <a href="#register" class="btn-event">Register Now</a>
+      </div>
+    </div>
+
+    <!-- Event 2 -->
+    <div class="event-card reveal">
+      <div class="event-img" style="background: linear-gradient(135deg, #1A3A6B, #2B5AA5);">
+        <div class="event-img-placeholder">📚<br>Senior High<br>Enrollment</div>
+        <span class="event-badge">Open Now</span>
+      </div>
+      <div class="event-body">
+        <div class="event-date-chip">📅 S.Y. 2026–2027 Enrollment</div>
+        <h3 class="event-title">Senior High School Enrollment SY 2026–2027</h3>
+        <div class="event-detail"><strong>Schedule</strong><span>Walk-in &amp; Campus Tour</span></div>
+        <div class="event-detail"><strong>Days</strong><span>Monday to Saturday</span></div>
+        <div class="event-detail"><strong>Hours</strong><span>8:00 AM – 5:00 PM</span></div>
+        <div class="event-highlight">✨ Free Tuition &amp; No Top-Up</div>
+        <a href="#register" class="btn-event">Register for Tour</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS LIFE -->
+<section class="section-campus" id="campus">
+  <div class="campus-inner">
+    <div class="campus-text">
+      <span class="section-tag reveal">Student Experience</span>
+      <h2 class="section-title reveal">Campus Life</h2>
+      <p class="section-lead reveal">Experience a vibrant student life filled with extracurricular activities, practical training, and community engagement. At SCC, we build an environment that fosters creativity, leadership, and camaraderie.</p>
+      <ul class="campus-list reveal">
+        <li>Modern Facilities &amp; Labs</li>
+        <li>Active Student Organizations</li>
+        <li>Comprehensive Life Skills Training</li>
+        <li>Cultural &amp; Academic Events</li>
+        <li>Sports &amp; Recreation Programs</li>
+      </ul>
+    </div>
+    <div class="campus-photos reveal">
+      <div class="photo-box"><span class="photo-label">Students &amp; Faculty</span></div>
+      <div class="photo-box"><span class="photo-label">Campus Facilities</span></div>
+      <div class="photo-box"><span class="photo-label">Student Organizations</span></div>
+      <div class="photo-box"><span class="photo-label">Events &amp; Activities</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="section-register" id="register">
+  <div class="register-inner">
+    <div class="register-header">
+      <span class="section-tag" style="color:var(--gold);">Join Us</span>
+      <h2>Event Registration</h2>
+      <p>Fill out the form below to secure your spot.</p>
+    </div>
+    <div class="form-card reveal">
+      <form id="regForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" placeholder="09XX XXX XXXX" required>
+          </div>
+          <div class="form-group">
+            <label for="program">Program / Course</label>
+            <select id="program" name="program">
+              <option value="">Select a program</option>
+              <option>BSHM – Bachelor of Science in Hospitality Management</option>
+              <option>BSTM – Bachelor of Science in Tourism Management</option>
+              <option>BSCS – Bachelor of Science in Computer Science</option>
+              <option>BSBA – Bachelor of Science in Business Administration</option>
+              <option>ABPOL – Bachelor of Arts in Political Science</option>
+              <option>EDUC – Bachelor of Elementary / Secondary Education</option>
+              <option>Senior High School</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="eventFor">Event to Register For *</label>
+            <select id="eventFor" name="eventFor" required>
+              <option value="">Select an event</option>
+              <option>Tertiary Graduation Orientation A.Y. 2025–2026</option>
+              <option>Senior High School Enrollment SY 2026–2027 – Campus Tour</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="message">Message / Notes (Optional)</label>
+            <textarea id="message" name="message" placeholder="Any questions or additional information..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Submit Registration</button>
+        <div class="success-msg" id="successMsg">
+          ✅ Registration submitted successfully! We'll contact you shortly to confirm your spot.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>St. Clare College</strong>. The School of Life Skills.</p>
+</footer>
+
+<script>
+  // ── Hamburger ──
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Form submit ──
+// ── Form submit ──
+  document.getElementById('regForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // 1. Kunin ang values mula sa form
+    const data = {
+      fullName: document.getElementById('fullName').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      program: document.getElementById('program').value,
+      eventFor: document.getElementById('eventFor').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      // 2. I-send ang data sa server.js API
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // 3. Ipakita ang success message kung pumasok sa database
+        document.getElementById('successMsg').style.display = 'block';
+        this.reset();
+        console.log('Saved to database:', result);
+        setTimeout(() => document.getElementById('successMsg').style.display = 'none', 5000);
+      } else {
+        alert('May error sa database: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Hindi makakonekta sa server. Siguraduhing naka-run ang server.js');
+    }
+  });
+
+  // ── Active nav link ──
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--maroon)' : '';
+    });
+  });
+</script>
+</body>
+</html>
