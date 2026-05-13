@@ -26,15 +26,15 @@ Follow these steps to get your local environment running:
 
 2. Open your terminal or Command Prompt and navigate to the project directory:
 
-Bash
-cd stclare
-
+    ```bash
+    cd stclare
 
 3. Install Dependencies
 This project requires specific packages (like express and sqlite3). To install them automatically based on the package.json file, run:
 
-npm install
-
+    ```bash
+    npm install
+    
 Note: This command will download all necessary libraries into a node_modules folder.
 
 🗄️ Database Configuration
